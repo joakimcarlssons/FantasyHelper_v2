@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>65818acd-004a-41d1-a286-2c042546c7e6</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FantasyHelper.API\FantasyHelper.API.csproj" />
+    <ProjectReference Include="..\FantasyHelper.Shared\FantasyHelper.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
