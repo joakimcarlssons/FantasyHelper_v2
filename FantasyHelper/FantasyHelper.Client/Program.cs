@@ -38,7 +38,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseFantasyAPI();
+//app.UseFantasyAPI();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
