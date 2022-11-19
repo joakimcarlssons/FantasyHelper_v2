@@ -11,7 +11,7 @@ namespace FantasyHelper.Data
 
         public static IServiceCollection AddFantasyData(this IServiceCollection services)
         {
-            //services.AddScoped<FPLRepository>();
+            services.AddScoped<IRepository, FPLRepository>();
             //services.AddScoped<ASRepository>();
             //services.AddScoped<DbFactory>(serviceProvider => game =>
             //{

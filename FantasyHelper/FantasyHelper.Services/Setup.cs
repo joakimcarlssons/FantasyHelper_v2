@@ -1,4 +1,6 @@
 ﻿using FantasyHelper.Data;
+using FantasyHelper.Services.FPL;
+using FantasyHelper.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FantasyHelper.Services
@@ -7,6 +9,10 @@ namespace FantasyHelper.Services
     {
         public static IServiceCollection AddFantasyServices(this IServiceCollection services)
         {
+
+            services.AddHttpClient<IDataService, FPLDataService>("FPL");
+            services.AddHostedService<FPLDataService>();
+            services.AddTransient<ILeagueService, FPLLeagueService>();
             services.AddFantasyData();
             return services;
         }
