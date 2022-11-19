@@ -1,7 +1,5 @@
 using FantasyHelper.API;
 using FantasyHelper.Client.Data;
-//using FantasyHelper.Data;
-using FantasyHelper.Shared;
 using FantasyHelper.Shared.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +13,7 @@ builder.Services.Configure<AllsvenskanOptions>(builder.Configuration.GetSection(
 builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(EmailOptions.Key));
 builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.Key));
 
-builder.Services
-    .AddFantasyMappings()
-    .AddFantasyAPI("v1", "Fantasy API");
+builder.Services.AddFantasyAPI("v1", "Fantasy API");
     //.AddFantasyData();
 
 builder.Services.AddSingleton<WeatherForecastService>();

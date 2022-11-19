@@ -1,4 +1,5 @@
-﻿using FantasyHelper.Shared.Config;
+﻿using FantasyHelper.Services;
+using FantasyHelper.Shared.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace FantasyHelper.API
     {
         public static IServiceCollection AddFantasyAPI(this IServiceCollection services, string version, string title)
         {
-            //services.AddFantasyServices();
+            services.AddFantasyServices();
             services.AddControllers();
             services.AddSwaggerGen(x =>
             {
