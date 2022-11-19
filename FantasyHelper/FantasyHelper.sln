@@ -3,15 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Client", "FantasyHelper.Client\FantasyHelper.Client.csproj", "{899A48BF-7EFB-4093-8AD9-2A5873899D82}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.API", "FantasyHelper.API\FantasyHelper.API.csproj", "{0B1B3DD3-2B03-44C6-A4DD-8E4640D38FB5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Services", "FantasyHelper.Services\FantasyHelper.Services.csproj", "{CCC3F191-B1D4-42B9-A92F-85781B1DC7BD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Data", "FantasyHelper.Data\FantasyHelper.Data.csproj", "{B856B62F-A9B6-47F9-994B-0F02CE3FF6DE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Shared", "FantasyHelper.Shared\FantasyHelper.Shared.csproj", "{A8DD3E32-577D-4238-99FF-F13DD76E0066}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Client", "FantasyHelper.Client\FantasyHelper.Client.csproj", "{B225FE2A-9E0A-4DC1-AC1A-EB23E3D2FA25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,31 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{899A48BF-7EFB-4093-8AD9-2A5873899D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{899A48BF-7EFB-4093-8AD9-2A5873899D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{899A48BF-7EFB-4093-8AD9-2A5873899D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{899A48BF-7EFB-4093-8AD9-2A5873899D82}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B1B3DD3-2B03-44C6-A4DD-8E4640D38FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B1B3DD3-2B03-44C6-A4DD-8E4640D38FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B1B3DD3-2B03-44C6-A4DD-8E4640D38FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B1B3DD3-2B03-44C6-A4DD-8E4640D38FB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCC3F191-B1D4-42B9-A92F-85781B1DC7BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCC3F191-B1D4-42B9-A92F-85781B1DC7BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCC3F191-B1D4-42B9-A92F-85781B1DC7BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCC3F191-B1D4-42B9-A92F-85781B1DC7BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B856B62F-A9B6-47F9-994B-0F02CE3FF6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B856B62F-A9B6-47F9-994B-0F02CE3FF6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B856B62F-A9B6-47F9-994B-0F02CE3FF6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B856B62F-A9B6-47F9-994B-0F02CE3FF6DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8DD3E32-577D-4238-99FF-F13DD76E0066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8DD3E32-577D-4238-99FF-F13DD76E0066}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8DD3E32-577D-4238-99FF-F13DD76E0066}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8DD3E32-577D-4238-99FF-F13DD76E0066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B225FE2A-9E0A-4DC1-AC1A-EB23E3D2FA25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B225FE2A-9E0A-4DC1-AC1A-EB23E3D2FA25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B225FE2A-9E0A-4DC1-AC1A-EB23E3D2FA25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B225FE2A-9E0A-4DC1-AC1A-EB23E3D2FA25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {417675C7-EEFA-4EE1-B2CB-A2314816AC2C}
+		SolutionGuid = {9BACD68F-1E9A-4F3D-8138-F7CB354169DE}
 	EndGlobalSection
 EndGlobal
