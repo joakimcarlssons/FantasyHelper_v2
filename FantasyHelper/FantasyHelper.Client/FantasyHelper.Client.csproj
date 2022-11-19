@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FantasyHelper.Shared\FantasyHelper.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
