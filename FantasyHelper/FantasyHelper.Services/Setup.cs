@@ -12,6 +12,8 @@ namespace FantasyHelper.Services
 
             services.AddHttpClient<IDataService, FPLDataService>("FPL");
             services.AddHostedService<FPLDataService>();
+
+            services.AddTransient<IPlayersService, FPLPlayersService>();
             services.AddTransient<ILeagueService, FPLLeagueService>();
             services.AddFantasyData();
             return services;
