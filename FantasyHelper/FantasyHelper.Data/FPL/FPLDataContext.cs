@@ -15,7 +15,7 @@ namespace FantasyHelper.Data.FPL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Set default schema
-            //modelBuilder.HasDefaultSchema("FPL");
+            modelBuilder.HasDefaultSchema("FPL");
 
             // A team can have many players, and a player can only have one team
             modelBuilder.Entity<Team>()
