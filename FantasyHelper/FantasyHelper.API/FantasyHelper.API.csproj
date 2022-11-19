@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FantasyHelper.Services\FantasyHelper.Services.csproj" />
     <ProjectReference Include="..\FantasyHelper.Shared\FantasyHelper.Shared.csproj" />
   </ItemGroup>
 
