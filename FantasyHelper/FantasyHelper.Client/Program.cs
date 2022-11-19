@@ -1,4 +1,4 @@
-using FantasyHelper.API;
+//using FantasyHelper.API;
 using FantasyHelper.Client.Data;
 using FantasyHelper.Data;
 using FantasyHelper.Shared;
@@ -17,7 +17,7 @@ builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOpt
 
 builder.Services
     .AddFantasyMappings()
-    .AddFantasyAPI("v1", "Fantasy API")
+    //.AddFantasyAPI("v1", "Fantasy API")
     .AddFantasyData();
 
 builder.Services.AddSingleton<WeatherForecastService>();
