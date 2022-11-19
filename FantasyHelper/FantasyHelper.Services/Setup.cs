@@ -1,4 +1,4 @@
-﻿using FantasyHelper.Shared;
+﻿using FantasyHelper.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FantasyHelper.Services
@@ -7,7 +7,7 @@ namespace FantasyHelper.Services
     {
         public static IServiceCollection AddFantasyServices(this IServiceCollection services)
         {
-            services.AddFantasyMappings();
+            services.AddFantasyData();
             return services;
         }
     }
