@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FantasyHelper.Shared\FantasyHelper.Shared.csproj" />
+    <ProjectReference Include="..\FantasyHelper.API\FantasyHelper.API.csproj" />
   </ItemGroup>
 
 </Project>

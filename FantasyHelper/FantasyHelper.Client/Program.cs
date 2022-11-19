@@ -1,4 +1,4 @@
-//using FantasyHelper.API;
+using FantasyHelper.API;
 using FantasyHelper.Client.Data;
 //using FantasyHelper.Data;
 using FantasyHelper.Shared;
@@ -16,8 +16,8 @@ builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(EmailO
 builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.Key));
 
 builder.Services
-    .AddFantasyMappings();
-    //.AddFantasyAPI("v1", "Fantasy API")
+    .AddFantasyMappings()
+    .AddFantasyAPI("v1", "Fantasy API");
     //.AddFantasyData();
 
 builder.Services.AddSingleton<WeatherForecastService>();
@@ -38,7 +38,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseFantasyAPI();
+app.UseFantasyAPI();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
