@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Shared", "Fan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.API", "FantasyHelper.API\FantasyHelper.API.csproj", "{78804C75-0502-4D67-86CC-A84D1543E450}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Data", "FantasyHelper.Data\FantasyHelper.Data.csproj", "{9A8DB2E2-1F9D-45AB-B944-200B0DDEBA94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Services", "FantasyHelper.Services\FantasyHelper.Services.csproj", "{4B0BD102-3314-4D67-BF8A-947761D6F0B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{78804C75-0502-4D67-86CC-A84D1543E450}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78804C75-0502-4D67-86CC-A84D1543E450}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78804C75-0502-4D67-86CC-A84D1543E450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A8DB2E2-1F9D-45AB-B944-200B0DDEBA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A8DB2E2-1F9D-45AB-B944-200B0DDEBA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A8DB2E2-1F9D-45AB-B944-200B0DDEBA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A8DB2E2-1F9D-45AB-B944-200B0DDEBA94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0BD102-3314-4D67-BF8A-947761D6F0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0BD102-3314-4D67-BF8A-947761D6F0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0BD102-3314-4D67-BF8A-947761D6F0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0BD102-3314-4D67-BF8A-947761D6F0B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
