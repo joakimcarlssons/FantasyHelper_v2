@@ -1,4 +1,6 @@
-﻿using FantasyHelper.Shared;
+﻿using FantasyHelper.Data.FPL;
+using FantasyHelper.Shared;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FantasyHelper.Data
@@ -20,7 +22,7 @@ namespace FantasyHelper.Data
             //    };
             //});
 
-            //services.AddDbContext<FPLDataContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
+            services.AddDbContext<FPLDataContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
             //services.AddDbContext<ASDataContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
 
             services.AddFantasyMappings();
