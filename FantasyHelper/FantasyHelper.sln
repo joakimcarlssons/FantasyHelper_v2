@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Client", "FantasyHelper.Client\FantasyHelper.Client.csproj", "{B225FE2A-9E0A-4DC1-AC1A-EB23E3D2FA25}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B0BD102-3314-4D67-BF8A-947761D6F0B4} = {4B0BD102-3314-4D67-BF8A-947761D6F0B4}
+		{9A8DB2E2-1F9D-45AB-B944-200B0DDEBA94} = {9A8DB2E2-1F9D-45AB-B944-200B0DDEBA94}
+		{C5E89A24-EB1D-42DA-B0E8-2C758C142850} = {C5E89A24-EB1D-42DA-B0E8-2C758C142850}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Shared", "FantasyHelper.Shared\FantasyHelper.Shared.csproj", "{C5E89A24-EB1D-42DA-B0E8-2C758C142850}"
 EndProject
