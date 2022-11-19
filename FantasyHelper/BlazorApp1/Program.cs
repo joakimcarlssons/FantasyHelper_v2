@@ -1,20 +1,12 @@
-using FantasyHelper.Client.Data;
-using FantasyHelper.Shared;
-using FantasyHelper.Shared.Config;
+using BlazorApp1.Data;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
-builder.Services.Configure<FPLOptions>(builder.Configuration.GetSection(FPLOptions.Key));
-builder.Services.Configure<AllsvenskanOptions>(builder.Configuration.GetSection(AllsvenskanOptions.Key));
-builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(EmailOptions.Key));
-builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.Key));
-
-builder.Services.AddFantasyMappings();
-
 builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
