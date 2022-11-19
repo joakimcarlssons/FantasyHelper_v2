@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FantasyHelper.Data\FantasyHelper.Data.csproj" />
-    <ProjectReference Include="..\FantasyHelper.Services\FantasyHelper.Services.csproj" />
     <ProjectReference Include="..\FantasyHelper.Shared\FantasyHelper.Shared.csproj" />
   </ItemGroup>
 
