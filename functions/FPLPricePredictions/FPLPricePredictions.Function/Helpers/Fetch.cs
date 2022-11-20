@@ -1,14 +1,4 @@
-﻿using AngleSharp;
-using AngleSharp.Dom;
-using FPLPricePredictions.Function.Dtos;
-using PuppeteerSharp;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace FPLPricePredictions.Function.Helpers
+﻿namespace FPLPricePredictions.Function.Helpers
 {
     public static class Fetch
     {
