@@ -111,6 +111,24 @@ namespace FantasyHelper.Services.Helpers
         private static async ValueTask<IEnumerable<string>> FetchFPLPriceFallPlayers(string endpoint, int numberOfRetries, TimeSpan retryDelay)
         {
             var options = new ChromeOptions();
+            options.AddArgument("--disable-background-timer-throttling");
+            options.AddArgument("--disable-backgrounding-occluded-windows");
+            options.AddArgument("--disable-breakpad");
+            options.AddArgument("--disable-component-extensions-with-background-pages");
+            options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("--disable-extensions");
+            options.AddArgument("--disable-features=TranslateUI,BlinkGenPropertyTrees");
+            options.AddArgument("--disable-ipc-flooding-protection");
+            options.AddArgument("--disable-renderer-backgrounding");
+            options.AddArgument("--enable-features=NetworkService,NetworkServiceInProcess");
+            options.AddArgument("--force-color-profile=srgb");
+            options.AddArgument("--hide-scrollbars");
+            options.AddArgument("--metrics-recording-only");
+            options.AddArgument("--mute-audio");
+            options.AddArgument("--headless");
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36");
+
             var driver = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, options, TimeSpan.FromSeconds(300));
 
             try
@@ -119,7 +137,10 @@ namespace FantasyHelper.Services.Helpers
                 while (retry <= numberOfRetries)
                 {
                     driver.Navigate().GoToUrl(endpoint);
-                    driver.FindElement(By.ClassName("last")).Click();
+                    var lastBtn = driver.FindElement(By.ClassName("last"));
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true)", lastBtn);
+                    Thread.Sleep(500);
+                    lastBtn.Click();
 
                     var players = driver.FindElement(By.XPath("//table/tbody")).Text.Split("\r\n");
 
