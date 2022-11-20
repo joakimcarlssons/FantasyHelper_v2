@@ -43,13 +43,16 @@ namespace FantasyHelper.Services.Helpers
             await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
             var browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = false,
+                Headless = true,
             });
 
             try
             {
                 var page = await browser.NewPageAsync();
+                await page.SetUserAgentAsync("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36");
                 await page.GoToAsync(endpoint);
+                await page.WaitForNetworkIdleAsync();
+
                 var content = await page.GetContentAsync();
 
                 var context = BrowsingContext.New(Configuration.Default);
