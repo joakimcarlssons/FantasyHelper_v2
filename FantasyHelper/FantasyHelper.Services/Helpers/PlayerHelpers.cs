@@ -44,6 +44,11 @@ namespace FantasyHelper.Services.Helpers
             var browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
                 Headless = true,
+                Args = new[]
+                {
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox"
+                }
             });
 
             try
