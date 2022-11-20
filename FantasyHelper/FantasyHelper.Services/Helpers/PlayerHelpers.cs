@@ -1,5 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using AngleSharp;
+using AngleSharp.Dom;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using PuppeteerSharp;
 
 namespace FantasyHelper.Services.Helpers
 {
@@ -9,8 +12,9 @@ namespace FantasyHelper.Services.Helpers
         {
             try
             {
-                var players = await FetchFPLPriceRisePlayers(endpoint, 3, TimeSpan.FromSeconds(5));
-                if (!players.Any()) throw new Exception("No players fetched.");
+                //var players = await FetchFPLPriceRisePlayers(endpoint, 3, TimeSpan.FromSeconds(5));
+                var players = await FetchFPLPriceRisePlayers(endpoint);
+                if (players is null || !players.Any()) throw new Exception("No players fetched.");
                 return ParseFetchedFPLPricePlayers(players, db);
             }
             catch
@@ -30,6 +34,36 @@ namespace FantasyHelper.Services.Helpers
             catch
             {
                 throw;
+            }
+        }
+
+        private static async Task<IEnumerable<IElement>?> FetchFPLPriceRisePlayers(string endpoint)
+        {
+            using var browserFetcher = new BrowserFetcher();
+            await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
+            var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+            {
+                Headless = false,
+            });
+
+            try
+            {
+                var page = await browser.NewPageAsync();
+                await page.GoToAsync(endpoint);
+                var content = await page.GetContentAsync();
+
+                var context = BrowsingContext.New(Configuration.Default);
+                var document = await context.OpenAsync(req => req.Content(content));
+
+                return document.QuerySelector("#myDataTable")?.QuerySelector("tbody")?.QuerySelectorAll("tr");
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                await browser.CloseAsync();
             }
         }
 
@@ -99,6 +133,36 @@ namespace FantasyHelper.Services.Helpers
             {
                 driver.Quit();
             }
+        }
+
+        private static IEnumerable<Player> ParseFetchedFPLPricePlayers(IEnumerable<IElement> players, IRepository db)
+        {
+            if (players is null || !players.Any()) throw new Exception("No players provided.");
+
+            var result = new List<Player>();
+
+            foreach (var player in players)
+            {
+                var props = player.QuerySelectorAll("td");
+                var name = props[1].QuerySelector("span")?.InnerHtml;
+                var team = props[2].InnerHtml;
+                var target = props[^2].InnerHtml;
+
+                var matchingPlayers = db.GetPlayers(p => p.DisplayName == name && (p.Team?.Name?.Contains(team) ?? false), includeTeam: true);
+                var storedPlayer = matchingPlayers.FirstOrDefault();
+
+                if (matchingPlayers.Count() > 1)
+                {
+                    storedPlayer = matchingPlayers.FirstOrDefault(p => (p.Team?.Name?.Contains(team) ?? false));
+                }
+
+                if (storedPlayer is null) throw new NullReferenceException($"Could not find player with name {name} and team {team}");
+
+                storedPlayer.PriceTarget = target;
+                result.Add(storedPlayer);
+            }
+
+            return result;
         }
 
         private static IEnumerable<Player> ParseFetchedFPLPricePlayers(IEnumerable<string> players, IRepository db)
