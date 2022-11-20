@@ -35,7 +35,7 @@ jobs:
   build_FPL_pricechecker:
     name: 'Build FPL pricechecker function'
     needs: check_changed_services
-    if: contains(needs.check_changed_services.outputs.files, 'functions/FPLPricePredictions')
+    if: contains(fromJson('["functions/FPLPricePredictions"], [".github"]'), needs.check_changed_services.outputs.files)
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout code'
@@ -51,7 +51,7 @@ jobs:
         run: dotnet build "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release
 
       - name: Publish
-        run: dotnet publish "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release -o ./fplpricechecker
+        run: dotnet publish "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release -o ./output
 
   build_app:
     name: 'Build main app'
@@ -93,7 +93,7 @@ jobs:
         with:
           app-name: 'fhpricechanges'
           slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/fplpricechecker'
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3FFE9254143E419198E2EA6CDED1381D }}
 
   deploy_app:
