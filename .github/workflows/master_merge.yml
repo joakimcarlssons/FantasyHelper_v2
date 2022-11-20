@@ -35,7 +35,7 @@ jobs:
   build_FPL_pricechecker:
     name: 'Build FPL pricechecker function'
     needs: check_changed_services
-    if: contains(fromJson('["functions/FPLPricePredictions"], [".github"]'), needs.check_changed_services.outputs.files)
+    if: contains(needs.check_changed_services.outputs.files, 'functions/FPLPricePredictions') || contains(needs.check_changed_services.outputs.files, '.github/workflows/master_merge.yml')
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout code'
