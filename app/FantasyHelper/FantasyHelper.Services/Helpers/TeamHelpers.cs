@@ -1,6 +1,4 @@
-﻿using FantasyHelper.Data.Models;
-using HtmlAgilityPack;
-using System.Collections;
+﻿using HtmlAgilityPack;
 
 namespace FantasyHelper.Services.Helpers
 {

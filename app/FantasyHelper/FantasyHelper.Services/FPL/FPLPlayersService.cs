@@ -1,38 +1,39 @@
-﻿using AutoMapper;
-using FantasyHelper.Data;
-using FantasyHelper.Services.Interfaces;
-using FantasyHelper.Shared.Config;
-using FantasyHelper.Shared.Dtos;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
-namespace FantasyHelper.Services.FPL
+﻿namespace FantasyHelper.Services.FPL
 {
     public class FPLPlayersService : IPlayersService
     {
         private readonly ILogger<FPLPlayersService> _logger;
         private readonly IMapper _mapper;
         private readonly IRepository _db;
+        private readonly IHttpClientFactory _httpClientFactory;
         private FPLOptions _options;
 
-        public FPLPlayersService(ILogger<FPLPlayersService> logger, IMapper mapper, IRepository db, IOptions<FPLOptions> options)
+        public FPLPlayersService(ILogger<FPLPlayersService> logger, IMapper mapper, IRepository db, IOptions<FPLOptions> options, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _mapper = mapper;
             _db = db;
             _options = options.Value;
+            _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IEnumerable<PlayerPriceChangeDto>> GetPlayersClosestToPriceFall()
+        public async Task<PriceChangingPlayersDto> GetPriceChangingPlayers()
         {
-            var result = await PlayerHelpers.GetFPLPlayersClosestToPriceFall(_db, _options.PriceEndpoint);
-            return _mapper.Map<IEnumerable<PlayerPriceChangeDto>>(result);
-        }
+            try
+            {
+                using var client = _httpClientFactory.CreateClient();
+                client.DefaultRequestHeaders.Add("x-functions-key", _options.FunctionsKey);
 
-        public async Task<IEnumerable<PlayerPriceChangeDto>> GetPlayersClosestToPriceRise()
-        {
-            var result = await PlayerHelpers.GetFPLPlayersClosestToPriceRise(_db, _options.PriceEndpoint);
-            return _mapper.Map<IEnumerable<PlayerPriceChangeDto>>(result);
+                var response = await client.GetFromJsonAsync<PriceChangingPlayersDto>(_options.PriceFunctionEndpoint);
+                if (response is null || response.RisingPlayers is null || response.FallingPlayers is null) throw new NullReferenceException("No players received");
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to fetch price changing players: {ex.Message}", ex.Message);
+                throw;
+            }
         }
 
         public IEnumerable<PlayerReadDto> GetPlayersWithBestForm(int numberOfPlayers)
