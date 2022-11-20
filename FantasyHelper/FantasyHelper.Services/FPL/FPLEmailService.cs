@@ -19,8 +19,8 @@
         {
             try
             {
-                var risingPlayers = await _playersService.GetPlayersClosestToPriceRise();
-                var fallingPlayers = await _playersService.GetPlayersClosestToPriceFall();
+                //var risingPlayers = await _playersService.GetPlayersClosestToPriceRise();
+                //var fallingPlayers = await _playersService.GetPlayersClosestToPriceFall();
 
                 var result = await EmailHelpers.SendEmail(new()
                 {
@@ -33,7 +33,7 @@
                     ReceiverEmail = _emailOptions.ReceiverEmail,
                     ReceiverName = _emailOptions.ReceiverName,
                     Subject = "Daily FPL Update",
-                    Body = EmailHelpers.ConstructEmailBaseContent("Daily FPL Update", ConstructDailyEmailContent(risingPlayers, fallingPlayers)),
+                    Body = EmailHelpers.ConstructEmailBaseContent("Daily FPL Update", "Test"),//ConstructDailyEmailContent(risingPlayers, fallingPlayers)),
                 });
             }
             catch (Exception ex)
