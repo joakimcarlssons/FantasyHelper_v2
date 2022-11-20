@@ -35,7 +35,7 @@ jobs:
   build_FPL_pricechecker:
     name: 'Build FPL pricechecker function'
     needs: check_changed_services
-    if: contains(needs.check_changed_services.outputs.files, 'functions/FPLPricePredictions') || contains(needs.check_changed_services.outputs.files, '.github/workflows/master_merge.yml')
+    if: contains(needs.check_changed_services.outputs.files, 'functions/FPLPricePredictions') || contains(needs.check_changed_services.outputs.files, '.github/workflow/master_merge.yml')
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout code'
@@ -51,7 +51,13 @@ jobs:
         run: dotnet build "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release
 
       - name: Publish
-        run: dotnet publish "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release -o ./output
+        run: dotnet publish "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release -o ${{env.DOTNET_ROOT}}/fplpricechange
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: fantasyhelper-fplpricechange
+          path: ${{env.DOTNET_ROOT}}/fplpricechange
 
   build_app:
     name: 'Build main app'
@@ -77,7 +83,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: fantasyhelper-app
+          name: fantasyhelper-fplpricechange
           path: ${{env.DOTNET_ROOT}}/app
 
 # DEPLOY
@@ -87,6 +93,11 @@ jobs:
     name: 'Deploy FPL pricechecker function'
     needs: build_FPL_pricechecker
     steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: fantasyhelper-app
+
       - name: 'Deploy to Azure (Functions)'
         uses: azure/functions-action@v1
         id: fa-fplprice
