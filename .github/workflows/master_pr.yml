@@ -1,0 +1,50 @@
+# Workflow performs a build on all services upon PR
+
+name: Builds services on PR
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+  DOTNET_VERSION: '6.0.x'
+
+jobs:
+  build_FPL_pricechecker:
+    name: 'Build FPL pricechecker function'
+    needs: check_changed_services
+    if: contains(needs.check_changed_services.outputs.files, 'functions/FPLPricePredictions') || contains(needs.check_changed_services.outputs.files, '.github/workflows/master_merge.yml')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v2
+      
+      - name: 'Set up .NET ${{ env.DOTNET_VERSION }} environment'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          include-prerelease: true
+      
+      - name: Build
+        run: dotnet build "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release
+  
+  build_app:
+    name: 'Build main app'
+    needs: check_changed_services
+    if: contains(needs.check_changed_services.outputs.files, 'app/FantasyHelper')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v2
+      
+      - name: 'Set up .NET ${{ env.DOTNET_VERSION }} environment'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          include-prerelease: true
+      
+      - name: Build
+        run: dotnet build "./app/FantasyHelper/FantasyHelper.sln" -c Release
