@@ -17,6 +17,15 @@ namespace FantasyHelper.API.Controllers.FPL
             _playersService = playersService;
         }
 
+        [HttpGet("pricerise")]
+        public async Task<ActionResult> PriceRise()
+        {
+            _logger.LogInformation("--> Request received for Price rise");
+            var players = await _playersService.GetPlayersClosestToPriceRise();
+            return Ok(players);
+
+        }
+
         [HttpGet("form")]
         public ActionResult GetPlayersWithBestForm()
         {
