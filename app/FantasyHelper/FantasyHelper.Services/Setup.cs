@@ -22,7 +22,11 @@
                     .WithIdentity("Daily Trigger")
                     .ForJob(dailyKey)
                     .StartAt(DateTime.UtcNow.AddSeconds(10))
-                    .WithSimpleSchedule(x => x.WithInterval(TimeSpan.FromHours(24)).RepeatForever()));
+                    //.WithSimpleSchedule(x => x.WithInterval(TimeSpan.FromHours(24)).RepeatForever()));
+                    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(21, 30)
+                        .InTimeZone(TimeZoneInfo.Utc)
+                        .WithMisfireHandlingInstructionIgnoreMisfires())
+                    );
 
             });
             services.AddTransient<SendDailyNotifications>();

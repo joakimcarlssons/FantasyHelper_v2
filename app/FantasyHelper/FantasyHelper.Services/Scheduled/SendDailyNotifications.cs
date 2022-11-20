@@ -17,12 +17,13 @@ namespace FantasyHelper.Services.Scheduled
         {
             try
             {
-                _logger.LogInformation("Sending daily email...");
+                _logger.LogInformation("--> Sending daily email...");
                 await _emailService.SendDailyMail();
+                _logger.LogInformation("--> Daily email has been sent!");
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to execute sending of daily notification: {ex.Message}", ex.Message);
+                _logger.LogError("--> Failed to execute sending of daily notification: {ex.Message}", ex.Message);
                 throw;
             }
         }

@@ -1,0 +1,122 @@
+# Workflow performs a build and deploy on affected services upon merge
+
+name: Builds and deploy to Azure upon merge
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+  DOTNET_VERSION: '6.0.x'
+
+jobs:
+  check_changed_services:
+    name: Check Changed Services
+    outputs:
+      files: ${{ steps.check_files.outputs.files }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      
+      - name: Check Modified Files
+        id: check_files
+        run: |
+          git diff --name-only HEAD^ HEAD > files.txt
+          echo "::set-output name=files::$(tr -s '\n ' ',' < files.txt)"
+  
+# BUILD
+
+  build_FPL_pricechecker:
+    name: 'Build FPL pricechecker function'
+    needs: check_changed_services
+    if: contains(needs.check_changed_services.outputs.files, 'functions/FPLPricePredictions')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v2
+      
+      - name: 'Set up .NET ${{ env.DOTNET_VERSION }} environment'
+        uses: action/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          include-prerelease: true
+      
+      - name: Build
+        run: dotnet build "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release
+
+      - name: Publish
+        run: dotnet publish "./functions/FPLPricePredictions/FPLPricePredictions.sln" -c Release -o ./fplpricechecker
+
+  build_app:
+    name: 'Build main app'
+    needs: check_changed_services
+    if: contains(needs.check_changed_services.outputs.files, 'app/FantasyHelper')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v2
+      
+      - name: 'Set up .NET ${{ env.DOTNET_VERSION }} environment'
+        uses: action/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          include-prerelease: true
+      
+      - name: Build
+        run: dotnet build "./app/FantasyHelper/FantasyHelper.sln" -c Release
+      
+      - name: Publish
+        run: dotnet publish "./app/FantasyHelper/FantasyHelper.sln" -c Release -o ${{env.DOTNET_ROOT}}/app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: fantasyhelper-app
+          path: ${{env.DOTNET_ROOT}}/app
+
+# DEPLOY
+
+  deploy_FPL_pricechecker:
+    runs-on: ubuntu-latest
+    name: 'Deploy FPL pricechecker function'
+    needs: build_FPL_pricechecker
+    steps:
+      - name: 'Deploy to Azure (Functions)'
+        uses: azure/functions-action@v1
+        id: fa-fplprice
+        with:
+          app-name: 'fhpricechanges'
+          slot-name: 'Production'
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/fplpricechecker'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3FFE9254143E419198E2EA6CDED1381D }}
+
+  deploy_app:
+    runs-on: ubuntu-latest
+    name: 'Deploy main app'
+    needs: build_app
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: fantasyhelper-app
+      
+      - name: Deploy to Azure (Web App)
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'joxfantasyhelper'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1AE5528E18BF4EB8A47D54C124E3C5A5 }}
+          package: .
+
+    
