@@ -23,14 +23,16 @@ namespace FantasyHelper.Services.FPL
             _options = options.Value;
         }
 
-        public Task<IEnumerable<PlayerPriceChangeDto>> GetPlayersClosestToPriceFall()
+        public async Task<IEnumerable<PlayerPriceChangeDto>> GetPlayersClosestToPriceFall()
         {
-            throw new NotImplementedException();
+            var result = await PlayerHelpers.GetFPLPlayersClosestToPriceFall(_db, _options.PriceEndpoint);
+            return _mapper.Map<IEnumerable<PlayerPriceChangeDto>>(result);
         }
 
-        public Task<IEnumerable<PlayerPriceChangeDto>> GetPlayersClosestToPriceRise()
+        public async Task<IEnumerable<PlayerPriceChangeDto>> GetPlayersClosestToPriceRise()
         {
-            throw new NotImplementedException();
+            var result = await PlayerHelpers.GetFPLPlayersClosestToPriceRise(_db, _options.PriceEndpoint);
+            return _mapper.Map<IEnumerable<PlayerPriceChangeDto>>(result);
         }
 
         public IEnumerable<PlayerReadDto> GetPlayersWithBestForm(int numberOfPlayers)

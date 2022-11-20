@@ -1,18 +1,4 @@
-﻿using AutoMapper;
-using FantasyHelper.Data;
-using FantasyHelper.Data.Models;
-using FantasyHelper.Services.Interfaces;
-using FantasyHelper.Shared.Config;
-using FantasyHelper.Shared.Dtos.External.FPL;
-using FantasyHelper.Shared.Enums;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System.Net.Http;
-using System.Net.Http.Json;
-
-namespace FantasyHelper.Services.FPL
+﻿namespace FantasyHelper.Services.FPL
 {
     /// <summary>
     /// Handles the continuous data loading of FPL Data
@@ -131,7 +117,7 @@ namespace FantasyHelper.Services.FPL
                     var players = await GetPlayers(client, stoppingToken);
 
                     var teams = await GetTeams(client, stoppingToken);
-                    teams = await _leagueService.ApplyLeagueData(teams, stoppingToken);
+                    //teams = await _leagueService.ApplyLeagueData(teams, stoppingToken);
 
                     var gameweeks = await GetGameweeks(client, stoppingToken);
 

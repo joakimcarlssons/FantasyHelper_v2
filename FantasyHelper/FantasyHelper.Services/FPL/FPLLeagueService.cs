@@ -34,7 +34,7 @@ namespace FantasyHelper.Services.FPL
             }
             catch (Exception ex)
             {
-                _logger.LogError("--> Failed to load league table data for Allsvenskan: {ex.Message}", ex.Message);
+                _logger.LogError("--> Failed to load league table data for Premier League: {ex.Message}", ex.Message);
                 throw;
             }
         }

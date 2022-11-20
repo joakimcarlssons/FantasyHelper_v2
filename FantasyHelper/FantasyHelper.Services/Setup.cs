@@ -1,9 +1,4 @@
-﻿using FantasyHelper.Data;
-using FantasyHelper.Services.FPL;
-using FantasyHelper.Services.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace FantasyHelper.Services
+﻿namespace FantasyHelper.Services
 {
     public static class Setup
     {
@@ -15,6 +10,27 @@ namespace FantasyHelper.Services
 
             services.AddTransient<IPlayersService, FPLPlayersService>();
             services.AddTransient<ILeagueService, FPLLeagueService>();
+            services.AddTransient<IEmailService, FPLEmailService>();
+
+            services.AddQuartz(q =>
+            {
+                q.UseMicrosoftDependencyInjectionJobFactory();
+
+                var dailyKey = new JobKey("daily");
+                q.AddJob<SendDailyNotifications>(dailyKey, job => job.StoreDurably());
+                q.AddTrigger(t => t
+                    .WithIdentity("Daily Trigger")
+                    .ForJob(dailyKey)
+                    .StartAt(DateTime.UtcNow.AddSeconds(10))
+                    .WithSimpleSchedule(x => x.WithInterval(TimeSpan.FromHours(24)).RepeatForever()));
+
+            });
+            services.AddTransient<SendDailyNotifications>();
+            services.AddQuartzHostedService(opt =>
+            {
+                opt.WaitForJobsToComplete = true;
+            });
+
             services.AddFantasyData();
             return services;
         }
