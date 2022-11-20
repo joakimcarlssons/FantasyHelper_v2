@@ -99,12 +99,12 @@ jobs:
           name: fantasyhelper-fplpricechange
 
       - name: 'Deploy to Azure (Functions)'
-        uses: azure/functions-action@v1
         id: fa-fplprice
+        uses: azure/functions-action@v1
         with:
           app-name: 'fhpricechanges'
           slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3FFE9254143E419198E2EA6CDED1381D }}
 
   deploy_app:
