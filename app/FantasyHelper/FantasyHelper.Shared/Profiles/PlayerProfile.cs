@@ -12,12 +12,16 @@ namespace FantasyHelper.Shared.Profiles
         {
             CreateMap<FPLPlayerDto, Player>();
             CreateMap<ASPlayerDto, Player>();
-            CreateMap<Player, PlayerReadDto>();
             CreateMap<Player, PlayerPriceChangeDto>()
                 .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name));
             CreateMap<Player, PlayerNewsDto>()
                 .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name))
                 .ForMember(dest => dest.News, opt => opt.MapFrom(p => String.IsNullOrEmpty(p.News) ? "Available" : p.News));
+            CreateMap<Player, PlayerTopPerformerDto>()
+                .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(p => p.Price / 10));
+            CreateMap<Player, PlayerTransferDto>()
+                .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name));
         }
     }
 }

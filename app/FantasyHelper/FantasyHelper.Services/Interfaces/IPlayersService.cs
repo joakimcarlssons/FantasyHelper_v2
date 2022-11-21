@@ -4,8 +4,10 @@ namespace FantasyHelper.Services.Interfaces
 {
     public interface IPlayersService
     {
-        IEnumerable<PlayerReadDto> GetPlayersWithBestForm(int numberOfPlayers);
         Task<PriceChangingPlayersDto> GetPriceChangingPlayers();
         IEnumerable<PlayerNewsDto> GetPlayerNews(DateTime fromDate);
+        IEnumerable<PlayerTopPerformerDto> GetBestPlayers(PlayerPositions position, int amount = 5);
+
+        TransferredPlayersDto GetTransferredPlayers(int amount = 5);
     }
 }

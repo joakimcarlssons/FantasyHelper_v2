@@ -9,6 +9,7 @@
             services.AddHostedService<FPLDataService>();
 
             services.AddTransient<IPlayersService, FPLPlayersService>();
+            services.AddTransient<ITeamsService, FPLTeamsService>();
             services.AddTransient<ILeagueService, FPLLeagueService>();
             services.AddTransient<IEmailService, FPLEmailService>();
 

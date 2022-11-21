@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace FantasyHelper.Shared.Dtos.External.FPL
 {
@@ -58,6 +59,9 @@ namespace FantasyHelper.Shared.Dtos.External.FPL
         [JsonPropertyName("clean_sheets")]
         public int CleanSheets { get; set; }
 
+        [JsonPropertyName("clean_sheets_per_90")]
+        public decimal? CleanSheetsPerMatch { get; set; }
+
         [JsonPropertyName("goals_conceded")]
         public int GoalsConceded { get; set; }
 
@@ -66,6 +70,9 @@ namespace FantasyHelper.Shared.Dtos.External.FPL
 
         [JsonPropertyName("saves")]
         public int Saves { get; set; }
+
+        [JsonPropertyName("saves_per_90")]
+        public decimal? SavesPerMatch { get; set; }
 
         [JsonPropertyName("bonus")]
         public int Bonus { get; set; }
@@ -106,13 +113,31 @@ namespace FantasyHelper.Shared.Dtos.External.FPL
         [JsonPropertyName("expected_goals")]
         public string? ExpectedGoals { get; set; }
 
+        [JsonPropertyName("expected_goals_per_90")]
+        public decimal? ExpectedGoalsPerMatch { get; set; }
+
         [JsonPropertyName("expected_assists")]
         public string? ExpectedAssists { get; set; }
 
-        [JsonPropertyName("expected_goal_involvement")]
+        [JsonPropertyName("expected_assists_per_90")]
+        public decimal? ExpectedAssistsPerMatch { get; set; }
+
+        [JsonPropertyName("expected_goal_involvements")]
         public string? ExpectedGoalsInvolvement { get; set; }
+
+        [JsonPropertyName("expected_goal_involvements_per_90")]
+        public decimal? ExpectedGoalsInvolvementPerMatch { get; set; }
 
         [JsonPropertyName("expected_goals_conceded")]
         public string? ExpectedGoalsConceded { get; set; }
+
+        [JsonPropertyName("expected_goals_conceded_per_90")]
+        public decimal? ExpectedGoalsConcededPerMatch { get; set; }
+
+        [JsonPropertyName("transfers_in_event")]
+        public int TransfersIn { get; set; }
+
+        [JsonPropertyName("transfers_out_event")]
+        public int TransfersOut { get; set; }
     }
 }

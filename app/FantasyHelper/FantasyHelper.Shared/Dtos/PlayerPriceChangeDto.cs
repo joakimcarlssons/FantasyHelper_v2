@@ -24,5 +24,11 @@ namespace FantasyHelper.Shared.Dtos
 
         [JsonPropertyName("falling_players")]
         public IEnumerable<PlayerPriceChangeDto>? FallingPlayers { get; set; }
+
+        public PriceChangingPlayersDto(IEnumerable<PlayerPriceChangeDto>? risingPlayers, IEnumerable<PlayerPriceChangeDto>? fallingPlayers)
+        {
+            RisingPlayers = risingPlayers;
+            FallingPlayers = fallingPlayers;
+        }
     }
 }

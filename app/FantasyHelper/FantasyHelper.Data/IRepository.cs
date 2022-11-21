@@ -11,7 +11,8 @@ namespace FantasyHelper.Data
         Task AddOrUpdateFixturesAsync(IEnumerable<Fixture> fixtures, CancellationToken cancellationToken = default);
 
         IEnumerable<Player> GetPlayers(Func<Player, bool>? filter, bool includeTeam);
-        IEnumerable<Team> GetTeams(Func<Team, bool>? filter, CancellationToken cancellationToken = default);
+        IQueryable<Team> GetTeams();
+        IEnumerable<Team> GetTeams(Func<Team, bool>? filter);
         IEnumerable<Team> GetTeams(Func<Team, bool>? teamFilter, Func<Player, bool>? playersFilter);
         IEnumerable<Team> GetTeams(Func<Team, bool>? teamFilter, Func<Fixture, bool>? fixturesFilter);
         IEnumerable<Team> GetTeams(Func<Team, bool>? teamFilter, Func<Player, bool>? playersFilter, Func<Fixture, bool>? fixturesFilter);

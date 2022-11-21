@@ -106,7 +106,13 @@ namespace FantasyHelper.Data.FPL
                 : _dbContext.Players.Where(filter ?? (p => true));
         }
 
-        public IEnumerable<Team> GetTeams(Func<Team, bool>? filter, CancellationToken cancellationToken = default)
+        public IQueryable<Team> GetTeams()
+        {
+            _logger.LogInformation("--> Getting FPL teams...");
+            return _dbContext.Teams.AsQueryable();
+        }
+
+        public IEnumerable<Team> GetTeams(Func<Team, bool>? filter)
         {
             _logger.LogInformation("--> Getting FPL teams...");
             return _dbContext.Teams.Where(filter ?? (t => true));
