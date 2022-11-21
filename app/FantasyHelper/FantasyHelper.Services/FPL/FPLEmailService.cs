@@ -1,4 +1,6 @@
-﻿namespace FantasyHelper.Services.FPL
+﻿using FantasyHelper.Shared.Dtos;
+
+namespace FantasyHelper.Services.FPL
 {
     public class FPLEmailService : IEmailService
     {
@@ -19,7 +21,8 @@
         {
             try
             {
-                var players = await _playersService.GetPriceChangingPlayers();
+                var priceChangingPlayers = await _playersService.GetPriceChangingPlayers();
+                var newsPlayers = _playersService.GetPlayerNews(DateTime.Today.AddDays(-1)); // Get player news published from the day before
 
                 var result = await EmailHelpers.SendEmail(new()
                 {
@@ -32,7 +35,8 @@
                     ReceiverEmail = _emailOptions.ReceiverEmail,
                     ReceiverName = _emailOptions.ReceiverName,
                     Subject = "Daily FPL Update",
-                    Body = EmailHelpers.ConstructEmailBaseContent("Daily FPL Update", ConstructDailyEmailContent(players.RisingPlayers!, players.FallingPlayers!)),
+                    Body = EmailHelpers.ConstructEmailBaseContent("Daily FPL Update", 
+                        ConstructDailyEmailContent(priceChangingPlayers.RisingPlayers!, priceChangingPlayers.FallingPlayers!, newsPlayers)),
                 });
             }
             catch (Exception ex)
@@ -42,7 +46,7 @@
             }
         }
 
-        private static string ConstructDailyEmailContent(IEnumerable<PlayerPriceChangeDto> risingPlayers, IEnumerable<PlayerPriceChangeDto> fallingPlayers)
+        private static string ConstructDailyEmailContent(IEnumerable<PlayerPriceChangeDto> risingPlayers, IEnumerable<PlayerPriceChangeDto> fallingPlayers, IEnumerable<PlayerNewsDto> newsPlayers)
         {
             var content = "<p style=\"font-weight:bold;\">Players closest to a price rise</p>";
 
@@ -59,13 +63,13 @@
                 content += $"<tr>" +
                     $"<td align=\"center\">{player.DisplayName}</td>" +
                     $"<td align=\"center\">{player.TeamName}</td>" +
-                    $"<td align=\"center\">{player.Price / 10}</td>" +
+                    $"<td align=\"center\">{player.Price}</td>" +
                     $"<td align=\"center\">{player.PriceTarget}</td>" +
                     $"</tr>";
             }
 
             content += "</table><br><br><p style=\"font-weight:bold;\">Players closest to a price drop</p>";
-            content += "<table style=\"margin-bottom:20px;\">" +
+            content += "<table style=\"margin:0 0 20px 0px;\">" +
                 "<tr>" +
                 "<th align=\"center\" style=\"margin:0 25px;\">Player</th>" +
                 "<th align=\"center\" style=\"margin:0 25px;\">Club</th>" +
@@ -78,12 +82,34 @@
                 content += $"<tr>" +
                     $"<td align=\"center\">{player.DisplayName}</td>" +
                     $"<td align=\"center\">{player.TeamName}</td>" +
-                    $"<td align=\"center\">{player.Price / 10}</td>" +
+                    $"<td align=\"center\">{player.Price}</td>" +
                     $"<td align=\"center\">{player.PriceTarget}</td>" +
                     $"</tr>";
             }
 
             content += "</table><br>";
+
+            if (newsPlayers != null && newsPlayers.Any())
+            {
+                content += "</table><br><br><p style=\"font-weight:bold;\">Player news</p>";
+                content += "<table style=\"margin:0 0 20px 0px;\">" +
+                "<tr>" +
+                "<th align=\"center\" style=\"margin:0 25px;\">Player</th>" +
+                "<th align=\"center\" style=\"margin:0 25px;\">Club</th>" +
+                "<th align=\"center\" style=\"margin:0 25px;\">News</th>" +
+                "</tr>";
+
+                foreach (var player in newsPlayers)
+                {
+                    content += $"<tr>" +
+                    $"<td align=\"center\">{player.DisplayName}</td>" +
+                    $"<td align=\"center\">{player.TeamName}</td>" +
+                    $"<td align=\"center\">{player.News}</td>" +
+                    $"</tr>";
+                }
+
+                content += "</table><br>";
+            }
 
             return content;
         }

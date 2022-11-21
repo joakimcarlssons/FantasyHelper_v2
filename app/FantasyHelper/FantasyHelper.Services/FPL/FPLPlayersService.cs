@@ -1,4 +1,6 @@
-﻿namespace FantasyHelper.Services.FPL
+﻿using FantasyHelper.Shared.Dtos;
+
+namespace FantasyHelper.Services.FPL
 {
     public class FPLPlayersService : IPlayersService
     {
@@ -44,6 +46,19 @@
                     _db.GetPlayers(null, false)
                     .OrderByDescending(p => p.Form)
                     .Take(numberOfPlayers));
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<PlayerNewsDto> GetPlayerNews(DateTime fromDate)
+        {
+            try
+            {
+                var players = _db.GetPlayers(p => p.NewsAdded != null && p.NewsAdded > fromDate, true);
+                return _mapper.Map<IEnumerable<PlayerNewsDto>>(players);
             }
             catch
             {

@@ -15,6 +15,9 @@ namespace FantasyHelper.Shared.Profiles
             CreateMap<Player, PlayerReadDto>();
             CreateMap<Player, PlayerPriceChangeDto>()
                 .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name));
+            CreateMap<Player, PlayerNewsDto>()
+                .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name))
+                .ForMember(dest => dest.News, opt => opt.MapFrom(p => String.IsNullOrEmpty(p.News) ? "Available" : p.News));
         }
     }
 }

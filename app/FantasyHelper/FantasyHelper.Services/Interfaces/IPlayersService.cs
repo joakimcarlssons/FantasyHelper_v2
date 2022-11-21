@@ -6,5 +6,6 @@ namespace FantasyHelper.Services.Interfaces
     {
         IEnumerable<PlayerReadDto> GetPlayersWithBestForm(int numberOfPlayers);
         Task<PriceChangingPlayersDto> GetPriceChangingPlayers();
+        IEnumerable<PlayerNewsDto> GetPlayerNews(DateTime fromDate);
     }
 }

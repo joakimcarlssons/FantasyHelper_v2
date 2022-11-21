@@ -11,6 +11,7 @@ namespace FantasyHelper.Data.Models
         public string? DisplayName { get; set; }
         public decimal Price { get; set; }
         public string? Form { get; set; }
+        public int FormRank { get; set; }
         public int? ChanceOfPlayingThisRound { get; set; }
         public int? ChanceOfPlayingNextRound { get; set; }
         public int Position { get; set; }
@@ -30,6 +31,19 @@ namespace FantasyHelper.Data.Models
         public int? FreekicksOrder { get; set; }
         public int? PenaltiesOrder { get; set; }
         public string? PriceTarget { get; set; }
+        public string? SeasonValue { get; set; }
+        public int TotalPoints { get; set; }
+        public string? PointsPerGame { get; set; }
+        public string? ExpectedPointsCurrentGameweek { get; set; }
+        public string? ExpectedPointsNextGameweek { get; set; }
+        public string? Status { get; set; }
+        public string? News { get; set; }
+        public DateTime? NewsAdded { get; set; }
+        public string? ExpectedGoals { get; set; }
+        public string? ExpectedAssists { get; set; }
+        public string? ExpectedGoalsInvolvement { get; set; }
+        public string? ExpectedGoalsConceded { get; set; }
+
         public Team? Team { get; set; }
     }
 }

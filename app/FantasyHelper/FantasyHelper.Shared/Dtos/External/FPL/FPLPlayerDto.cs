@@ -25,6 +25,12 @@ namespace FantasyHelper.Shared.Dtos.External.FPL
         [JsonPropertyName("form")]
         public string? Form { get; set; }
 
+        [JsonPropertyName("form_rank")]
+        public int FormRank { get; set; }
+
+        [JsonPropertyName("value_season")]
+        public string? SeasonValue { get; set; }
+
         [JsonPropertyName("element_type")]
         public int Position { get; set; }
 
@@ -67,6 +73,18 @@ namespace FantasyHelper.Shared.Dtos.External.FPL
         [JsonPropertyName("bps")]
         public int Bps { get; set; }
 
+        [JsonPropertyName("total_points")]
+        public int TotalPoints { get; set; }
+
+        [JsonPropertyName("points_per_game")]
+        public string? PointsPerGame { get; set; }
+
+        [JsonPropertyName("ep_this")]
+        public string? ExpectedPointsCurrentGameweek { get; set; }
+
+        [JsonPropertyName("ep_next")]
+        public string? ExpectedPointsNextGameweek { get; set; }
+
         [JsonPropertyName("corners_and_indirect_freekicks_order")]
         public int? CornersOrder { get; set; }
 
@@ -75,5 +93,26 @@ namespace FantasyHelper.Shared.Dtos.External.FPL
 
         [JsonPropertyName("penalties_order")]
         public int? PenaltiesOrder { get; set; }
+
+        [JsonPropertyName("status")]
+        public string? Status { get; set; }
+
+        [JsonPropertyName("news")]
+        public string? News { get; set; }
+
+        [JsonPropertyName("news_added")]
+        public DateTime? NewsAdded { get; set; }
+
+        [JsonPropertyName("expected_goals")]
+        public string? ExpectedGoals { get; set; }
+
+        [JsonPropertyName("expected_assists")]
+        public string? ExpectedAssists { get; set; }
+
+        [JsonPropertyName("expected_goal_involvement")]
+        public string? ExpectedGoalsInvolvement { get; set; }
+
+        [JsonPropertyName("expected_goals_conceded")]
+        public string? ExpectedGoalsConceded { get; set; }
     }
 }
