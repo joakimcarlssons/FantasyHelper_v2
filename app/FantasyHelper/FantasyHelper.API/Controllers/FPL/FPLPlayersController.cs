@@ -52,6 +52,22 @@ namespace FantasyHelper.API.Controllers.FPL
             }
         }
 
+        [HttpGet("risking-suspension", Name = "GetPlayersRiskingSuspension")]
+        public ActionResult GetPlayersRiskingSuspension()
+        {
+            try
+            {
+                _logger.LogInformation("--> Request received to GetPlayersRiskingSuspension...");
+                var players = _playersService.GetPlayersRiskingSuspension();
+                return Ok(players);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to handle request for GetPlayersRiskingSuspension: {ex.Message}", ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        }
+
         [HttpGet("goalkeepers", Name = "GetTopGoalkeepers")]
         public ActionResult GetTopGoalkeepers(int amount = 5)
         {

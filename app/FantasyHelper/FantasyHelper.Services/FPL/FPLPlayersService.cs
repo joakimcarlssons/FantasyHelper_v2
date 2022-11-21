@@ -1,4 +1,5 @@
 ﻿using FantasyHelper.Shared.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace FantasyHelper.Services.FPL
 {
@@ -93,6 +94,34 @@ namespace FantasyHelper.Services.FPL
             catch (Exception ex)
             {
                 _logger.LogError("--> Failed to get transferred players: {ex.Message}", ex.Message);
+                throw;
+            }
+        }
+
+        public IEnumerable<PlayerSuspendedDto> GetPlayersRiskingSuspension()
+        {
+            try
+            {
+                // 5 yellow cards before 19 matches played
+                var players = _db.GetTeams()
+                    .Where(t => t.MatchesPlayed < 19)
+                    .Include(t => t.Players)
+                    .ThenInclude(p => p.Team)
+                    .SelectMany(t => t.Players.Where(p => p.YellowCards == 4))
+                    .ToList();
+
+                // 10 yellow cards before 32 matches played
+                players.AddRange(_db.GetTeams()
+                    .Where(t => t.MatchesPlayed < 32)
+                    .Include(t => t.Players.Where(p => p.YellowCards == 9))
+                    .Where(t => t.Players.Count > 0)
+                    .SelectMany(t => t.Players.Where(p => p.YellowCards == 9)));
+
+                return _mapper.Map<IEnumerable<PlayerSuspendedDto>>(players);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("--> Failed to get players risking suspension: {ex.Message}", ex.Message);
                 throw;
             }
         }
