@@ -101,9 +101,14 @@ header .ham-menu {
         overflow: hidden;
     }
 
-    .main-content {
-        padding: 1rem;
-    }
+        .sidebar.show + .main-content article p {
+            color: red !important;
+            pointer-events: none;
+        }
+
+        .main-content {
+            padding: 1rem;
+        }
 }
 
 @media (min-width: 976px) {

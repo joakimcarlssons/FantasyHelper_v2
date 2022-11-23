@@ -1,7 +1,7 @@
 ﻿a {
     color: var(--main-color-dark) !important;
     text-decoration: underline !important;
-    cursor: pointer
+    cursor: pointer;
 }
 
 a:hover {
@@ -10,7 +10,6 @@ a:hover {
 
 section {
     margin-top: 4rem;
-    font-
 }
 
 section h3 {
