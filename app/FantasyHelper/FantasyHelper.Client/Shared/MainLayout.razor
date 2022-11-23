@@ -63,6 +63,7 @@
 
     private void NavigateTo(string path)
     {
-       Navigation?.NavigateTo(path);
+        ShowMenu = false;
+        Navigation?.NavigateTo(path);
     }
 }
