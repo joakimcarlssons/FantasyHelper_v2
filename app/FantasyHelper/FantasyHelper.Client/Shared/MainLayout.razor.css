@@ -1,5 +1,5 @@
 main {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -97,6 +97,8 @@ header .ham-menu {
         filter: blur(1px);
         opacity: .4;
         transition: all .5s;
+        max-height: 100vh;
+        overflow: hidden;
     }
 
     .main-content {
