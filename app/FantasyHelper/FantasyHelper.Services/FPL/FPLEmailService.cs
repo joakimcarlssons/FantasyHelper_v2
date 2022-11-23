@@ -1,6 +1,4 @@
-﻿using FantasyHelper.Shared.Dtos;
-
-namespace FantasyHelper.Services.FPL
+﻿namespace FantasyHelper.Services.FPL
 {
     public class FPLEmailService : IEmailService
     {

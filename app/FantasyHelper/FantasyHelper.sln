@@ -8,13 +8,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Client", "Fan
 		{C5E89A24-EB1D-42DA-B0E8-2C758C142850} = {C5E89A24-EB1D-42DA-B0E8-2C758C142850}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Shared", "FantasyHelper.Shared\FantasyHelper.Shared.csproj", "{C5E89A24-EB1D-42DA-B0E8-2C758C142850}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Shared", "FantasyHelper.Shared\FantasyHelper.Shared.csproj", "{C5E89A24-EB1D-42DA-B0E8-2C758C142850}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.API", "FantasyHelper.API\FantasyHelper.API.csproj", "{78804C75-0502-4D67-86CC-A84D1543E450}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.API", "FantasyHelper.API\FantasyHelper.API.csproj", "{78804C75-0502-4D67-86CC-A84D1543E450}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Services", "FantasyHelper.Services\FantasyHelper.Services.csproj", "{91DD345F-8655-4935-8DD1-04BF14C16667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Services", "FantasyHelper.Services\FantasyHelper.Services.csproj", "{91DD345F-8655-4935-8DD1-04BF14C16667}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyHelper.Data", "FantasyHelper.Data\FantasyHelper.Data.csproj", "{31DFED75-3EF3-44AD-87CF-AF912E48A92A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyHelper.Data", "FantasyHelper.Data\FantasyHelper.Data.csproj", "{31DFED75-3EF3-44AD-87CF-AF912E48A92A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

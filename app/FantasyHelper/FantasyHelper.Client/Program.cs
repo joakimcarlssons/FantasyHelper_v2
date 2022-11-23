@@ -1,5 +1,4 @@
 using FantasyHelper.API;
-using FantasyHelper.Client.Data;
 using FantasyHelper.Shared.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +13,6 @@ builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(EmailO
 builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.Key));
 
 builder.Services.AddFantasyAPI("v1", "Fantasy API");
-    //.AddFantasyData();
-
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 

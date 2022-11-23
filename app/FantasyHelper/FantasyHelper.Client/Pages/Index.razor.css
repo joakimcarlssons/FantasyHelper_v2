@@ -1,0 +1,41 @@
+﻿a {
+    color: var(--main-color-dark) !important;
+    text-decoration: underline !important;
+    cursor: pointer
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+section {
+    margin-top: 4rem;
+    font-
+}
+
+section h3 {
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 22px;
+}
+
+section .sub-header {
+    margin-bottom: 1.5rem;
+}
+
+section .sub-header p {
+    margin: 0;
+}
+
+section ul {
+    margin-left: 2rem;
+    list-style: circle;
+}
+
+section ul li {
+    margin: 10px 0;
+}
+
+.coming-soon {
+    font-style: italic;
+}

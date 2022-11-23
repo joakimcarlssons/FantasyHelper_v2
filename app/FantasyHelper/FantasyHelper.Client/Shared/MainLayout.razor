@@ -2,18 +2,67 @@
 
 <PageTitle>FantasyHelper.Client</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+<main>
+    <header>
+        <div class="ham-menu" @onclick="ToggleMenu">
+            @if (ShowMenu)
+            {
+                <span class="oi oi-x"></span>
+            }
+            else
+            {
+                <span class="oi oi-menu"></span>
+            }
         </div>
 
-        <article class="content px-4">
+        <h1 @onclick='(() => NavigateTo(""))'>Fantasy Helper</h1>
+    </header>
+    <div class="content-body">
+        <nav class="sidebar @MenuDisplayCss">
+            <ul>
+                <li @onclick='(() => NavigateTo(""))'>
+                    <NavLink href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home"></span>
+                        <span class="nav-text">Introduction</span>
+                    </NavLink>
+                </li>
+                <li @onclick='(() => NavigateTo("dashboard"))'>
+                    <NavLink href="dashboard" Match="NavLinkMatch.All">
+                        <span class="oi oi-graph"></span>
+                        <span class="nav-text">Dashboard</span>
+                    </NavLink>
+                </li>
+                <li @onclick='(() => NavigateTo("docs"))'>
+                    <NavLink href="docs" Match="NavLinkMatch.All">
+                        <span class="oi oi-document"></span>
+                        <span class="nav-text">Docs</span>
+                    </NavLink>
+                </li>
+            </ul>
+        </nav>
+        <section class="main-content" @onclick="CloseMenuFromMainContent">
             @Body
-        </article>
-    </main>
-</div>
+        </section>
+    </div>
+</main>
+
+@code {
+
+    [Inject]
+    public NavigationManager? Navigation { get; set; }
+
+    private string? CurrentPath { get; set; }
+    private bool ShowMenu = false;
+    private string? MenuDisplayCss => ShowMenu ? "show" : "hide";
+    private void ToggleMenu() => ShowMenu = !ShowMenu;
+
+    private void CloseMenuFromMainContent()
+    {
+        if (ShowMenu) ShowMenu = false;
+    }
+
+    private void NavigateTo(string path)
+    {
+       Navigation?.NavigateTo(path);
+    }
+}
