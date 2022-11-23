@@ -14,7 +14,8 @@ header {
 }
 
 header .ham-menu {
-    margin-top: -.5rem;
+    font-size: 22px;
+    margin-top: -.4rem;
     cursor: pointer;
 }
 
