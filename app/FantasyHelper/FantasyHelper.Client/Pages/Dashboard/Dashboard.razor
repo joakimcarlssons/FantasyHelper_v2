@@ -1,0 +1,114 @@
+﻿@page "/dashboard";
+@using FantasyHelper.Services.Interfaces
+@using FantasyHelper.Shared.Dtos
+@using FantasyHelper.Shared.Enums
+
+<PageTitle>Dashboard</PageTitle>
+
+<article>
+    <div class="choose-game">
+        <button class="@(ChosenGame == "FPL" ? "active" : "")" onclick="@(() => SetChosenGame("FPL"))">
+            FPL
+        </button>
+        <button class="@(ChosenGame == "Allsvenskan" ? "active" : "")" onclick="@(() => SetChosenGame("Allsvenskan"))">
+            Allsvenskan
+        </button>
+    </div>
+
+    <section class="dashboard">
+        <div class="item">
+            <h4>Teams with best upcoming fixtures</h4>
+            <hr />
+            @foreach (var team in TeamsService?.GetTeamsWithBestFixtures(9, 3, -1) ?? Array.Empty<TeamBestFixtureDto>()) 
+            {
+                <div class="best-fixtures">
+                    <p class="team">@team.ShortName</p>
+                
+                    @foreach(var fixture in CombineFixtures(team)) 
+                    {
+                        if (fixture.HomeTeamShortName == team.ShortName) 
+                        {
+                            <p class="fixture" style="@SetFixtureBackground(fixture, true)">
+                                @fixture.AwayTeamShortName (H)
+                            </p>
+                        }
+                        else 
+                        {
+                            <p class="fixture" style="@SetFixtureBackground(fixture, false)">
+                                @fixture.HomeTeamShortName (A)
+                            </p>
+                        }
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="item">
+            <h4>Most in form players by position</h4>
+            <select @onchange="@(e => SetSelectedPosition(e.Value))">
+                <option value="@PlayerPositions.Goalkeeper">Goalkeepers</option>
+                <option value="@PlayerPositions.Defender">Defenders</option>
+                <option value="@PlayerPositions.Midfielder">Midfielders</option>
+                <option value="@PlayerPositions.Attacker">Attackers</option>
+            </select>
+            <hr />
+            @foreach (var player in PlayersService?.GetBestPlayers(SelectedPlayerPosition, 6) ?? Array.Empty<PlayerTopPerformerDto>())
+            {
+                <div class="best-player">
+                    <p class="best-player__name">
+                        @player.DisplayName
+                        <span class="best-player__team">(@player.TeamName)</span>
+                    </p>
+                    <div class="best-player__info">
+                        <p><span class="bold">Form:</span> @player.Form</p>
+                        <p><span class="bold info" title="Points per game">PPG:</span> @player.PointsPerGame</p>
+                        <p><span class="bold info" title="Selected by">SB:</span> @player.SelectedByPercent%</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="item">
+            <h4>Latest player news</h4>
+            <hr />
+            @foreach (var player in PlayersService?.GetPlayerNews(DateTime.UtcNow.AddMonths(-1))?.OrderByDescending(p => p.NewsAdded).Take(5)
+                ?? Array.Empty<PlayerNewsDto>()) 
+            {
+                <div class="news">
+                    <p class="news__player-name">@player.DisplayName (@player.TeamName)</p>
+                    <p class="news__news">@player.News</p>
+                    <p class="news__date">From: @player.NewsAdded?.ToString("yyyy-MM-dd")</p>
+                </div>
+            }
+        </div>
+
+        <div class="item">
+            <h4>Most transferred players</h4>
+            <hr />
+            @foreach (var player in PlayersService?.GetTransferredPlayers(5)?.TransferredInPlayers ?? Array.Empty<PlayerTransferDto>())
+            {
+                <div class="transfer-player">
+                    <p class="transfer-player__name">@player.DisplayName <span class="transfer-player__team-short-name">(@player.TeamShortName)</span></p>
+                    <p class="transfer-player__transfers-in">
+                        @(player.TransfersIn / 1000)k 
+                        <span class="oi oi-arrow-top"></span>
+                    </p>
+                </div>
+            }
+
+            <hr />
+
+            @foreach (var player in PlayersService?.GetTransferredPlayers(5)?.TransferredOutPlayers ?? Array.Empty<PlayerTransferDto>())
+            {
+                <div class="transfer-player">
+                    <p class="transfer-player__name">@player.DisplayName <span class="transfer-player__team-short-name">(@player.TeamShortName)</span></p>
+                    <p class="transfer-player__transfers-out">
+                        @(player.TransfersOut / 1000)k
+                        <span class="oi oi-arrow-bottom"></span>
+                    </p>
+                </div>
+            }
+        </div>
+
+    </section>
+</article>

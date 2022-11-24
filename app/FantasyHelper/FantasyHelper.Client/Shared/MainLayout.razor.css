@@ -41,7 +41,7 @@ header .ham-menu {
     display: block;
     background: var(--color-main-dark);
     min-width: 250px;
-    height: 100vh;
+    min-height: 100vh;
     transition: transform .35s ease-in-out;
 }
 
@@ -107,9 +107,14 @@ header .ham-menu {
             pointer-events: none;
         }
 
-        .main-content {
-            padding: 1rem;
-        }
+    .content-body {
+        width: 100%;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 1rem;
+    }
 }
 
 @media (min-width: 976px) {

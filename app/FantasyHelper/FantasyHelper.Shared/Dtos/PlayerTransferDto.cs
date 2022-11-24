@@ -10,6 +10,9 @@ namespace FantasyHelper.Shared.Dtos
         [JsonPropertyName("team_name")]
         public string? TeamName { get; set; }
 
+        [JsonPropertyName("team_short_name")]
+        public string? TeamShortName { get; set; }
+
         [JsonPropertyName("transfers_in")]
         public int TransfersIn { get; set; }
 

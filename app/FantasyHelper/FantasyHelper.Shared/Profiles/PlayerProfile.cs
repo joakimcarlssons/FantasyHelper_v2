@@ -21,7 +21,8 @@ namespace FantasyHelper.Shared.Profiles
                 .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(p => p.Price / 10));
             CreateMap<Player, PlayerTransferDto>()
-                .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name));
+                .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name))
+                .ForMember(dest => dest.TeamShortName, opt => opt.MapFrom(p => p.Team!.ShortName));
             CreateMap<Player, PlayerSuspendedDto>()
                 .ForMember(dest => dest.TeamName, opt => opt.MapFrom(p => p.Team!.Name));
         }

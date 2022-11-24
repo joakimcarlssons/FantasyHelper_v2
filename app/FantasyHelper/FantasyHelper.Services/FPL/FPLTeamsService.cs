@@ -29,8 +29,7 @@ namespace FantasyHelper.Services.FPL
 
                 var teams = _db.GetTeams()
                     .Include(t => t.HomeFixtures.Where(f => f.GameweekId >= fromGameweek && f.GameweekId < (fromGameweek + amountOfFixtures)))
-                    .Include(t => t.AwayFixtures.Where(f => f.GameweekId >= fromGameweek && f.GameweekId < (fromGameweek + amountOfFixtures)))
-                    ;//.Include(t => t.Players);
+                    .Include(t => t.AwayFixtures.Where(f => f.GameweekId >= fromGameweek && f.GameweekId < (fromGameweek + amountOfFixtures)));
                 if (amountOfTeams > teams.Count()) amountOfTeams = teams.Count();
 
                 var selectedTeams = new List<(Team Team, int TotalDifficulty)>();
@@ -61,7 +60,7 @@ namespace FantasyHelper.Services.FPL
                     result.Add(_mapper.Map<TeamBestFixtureDto>(team.Team));
                 }
 
-                return result;
+                return result.OrderBy(t => t.AwayFixtures?.Sum(f => f.AwayTeamDifficulty) + t.HomeFixtures?.Sum(f => f.HomeTeamDifficulty));
             }
             catch (Exception ex)
             {
