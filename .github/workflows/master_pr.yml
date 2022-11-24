@@ -15,7 +15,6 @@ env:
 jobs:
   build_FPL_pricechecker:
     name: 'Build FPL pricechecker function'
-    if: contains(needs.check_changed_services.outputs.files, 'functions/FPLPricePredictions') || contains(needs.check_changed_services.outputs.files, '.github/workflows/master_merge.yml')
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout code'
@@ -32,7 +31,6 @@ jobs:
   
   build_app:
     name: 'Build main app'
-    if: contains(needs.check_changed_services.outputs.files, 'app/FantasyHelper')
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout code'
