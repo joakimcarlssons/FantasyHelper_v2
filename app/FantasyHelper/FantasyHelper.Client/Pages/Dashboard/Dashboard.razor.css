@@ -1,0 +1,150 @@
+﻿.choose-game {
+    display: flex;
+}
+
+    .choose-game button {
+        margin: 0;
+        padding: 12px;
+        min-width: 100px;
+        border: 2px solid var(--color-main-dark);
+        border-right: 0;
+    }
+
+        .choose-game button.active,
+        .choose-game button:hover {
+            background: var(--color-main-dark);
+            color: var(--color-main-light);
+            transition: all .15s ease-in-out;
+        }
+
+    .choose-game button:last-of-type {
+        border-right: 2px solid black;
+    }
+
+.dashboard {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0;
+    border: 1px solid var(--color-main-dark);
+    padding: 1rem;
+}
+
+.item h4 {
+    align-self: center;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.item p {
+    font-size: 14px;
+}
+
+.item select {
+    font-size: 14px;
+    padding: .3rem;
+}
+
+.best-fixtures {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+}
+
+.best-fixtures .team {
+    font-weight: bold;
+}
+
+.best-fixtures .team, .fixture {
+    border: 1px solid var(--color-main-dark);
+    border-right: 0;
+    padding: .3rem 0.3rem;
+    white-space: nowrap;
+}
+
+    .best-fixtures .fixture:last-of-type {
+        border-right: 1px solid var(--color-main-dark);
+    }
+
+.news__player-name {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.news__news {
+    margin-bottom: 0;
+}
+
+.news__date {
+    opacity: .55;
+}
+
+.transfer-player {
+    display: flex;
+    justify-content: space-between;
+}
+
+.transfer-player__transfers-out {
+    color: firebrick;
+}
+
+.transfer-player__transfers-in {
+    color: forestgreen;
+}
+
+.transfer-player__name {
+    font-weight: bold;
+}
+
+.transfer-player__team-short-name {
+    font-weight: 300;
+    font-size: 12px;
+    margin-left: 3px;
+}
+
+.best-player {
+    margin-bottom: .5rem;
+}
+
+.best-player__name {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.best-player__team {
+    font-weight: 300;
+}
+
+.best-player__info {
+    opacity: .7;
+    display: flex;
+}
+
+    .best-player__info > * {
+        margin-right: 1rem;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .info {
+        cursor: help;
+    }
+
+@media (max-width: 756px) {
+    article, .dashboard {
+        width: 100%;
+        display: flex;
+        gap: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -25,7 +25,7 @@
                     .StartAt(new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 20, 30, 0, DateTimeKind.Utc))
                     .WithSimpleSchedule(x => x.WithInterval(TimeSpan.FromHours(24))
                     .RepeatForever()
-                    .WithMisfireHandlingInstructionFireNow()));
+                    .WithMisfireHandlingInstructionFireNow())); ;
                     //.WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(21, 30)
                     //    .InTimeZone(TimeZoneInfo.Utc)
                     //    .WithMisfireHandlingInstructionIgnoreMisfires()).);
